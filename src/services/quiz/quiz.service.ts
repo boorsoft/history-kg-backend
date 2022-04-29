@@ -3,7 +3,9 @@ import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class QuizService {
-    constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService) {
+
+    }
 
     async getQuizzes() {
         return this.prisma.quiz.findMany();
@@ -12,6 +14,13 @@ export class QuizService {
     async getQuiz(id: number) {
         return this.prisma.quiz.findUnique({
             where: { id },
+            include: {
+                questions: {
+                    include: {
+                        answers: true,
+                    }
+                }
+            }
         })
     }
 
@@ -21,9 +30,13 @@ export class QuizService {
         });
     }
 
-    async getQuestionAnswers(questionId: number) {
-        return this.prisma.questionAnswer.findUnique({
-            where: { questionId },
-        });
-    }
+    // async createQuiz(title: string) {
+    //     return this.prisma.quiz.create({
+    //         data: {
+    //             title: ,
+    //             questions: 
+    //         }
+    //     })
+    // }
+
 }

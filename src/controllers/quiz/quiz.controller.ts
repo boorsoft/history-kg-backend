@@ -2,7 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { Quiz } from '@prisma/client';
 import { QuizService } from 'src/services/quiz/quiz.service';
 
-@Controller('quiz')
+@Controller('api/quiz')
 export class QuizController {
     constructor(private readonly quizService: QuizService) {}
 
@@ -12,7 +12,7 @@ export class QuizController {
     }
 
     @Get(':id')
-    getQuiz(@Param('id') id: string): Promise<Quiz> {
+      getQuiz(@Param('id') id: string): Promise<Quiz> {
       return this.quizService.getQuiz(+id);
     }
 }
