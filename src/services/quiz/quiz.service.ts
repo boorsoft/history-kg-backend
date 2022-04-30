@@ -3,9 +3,7 @@ import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class QuizService {
-    constructor(private prisma: PrismaService) {
-
-    }
+    constructor(private prisma: PrismaService) {}
 
     async getQuizzes() {
         return this.prisma.quiz.findMany();
@@ -30,13 +28,31 @@ export class QuizService {
         });
     }
 
-    // async createQuiz(title: string) {
-    //     return this.prisma.quiz.create({
-    //         data: {
-    //             title: ,
-    //             questions: 
-    //         }
-    //     })
-    // }
+    async createQuiz(title: string) {
+        return this.prisma.quiz.create({
+            data: {
+                title
+            },
+        })
+    }
+
+    async createQuestion(text: string, quizId: number) {
+        return this.prisma.question.create({
+            data: {
+                text,
+                quizId
+            }
+        })
+    }
+
+    async createAnswer(text: string, questionId: number, isCorrectAnswer: boolean) {
+        return this.prisma.answer.create({
+            data: {
+                text,
+                questionId,
+                isCorrectAnswer
+            }
+        })
+    }
 
 }

@@ -41,3 +41,16 @@ model Quiz {
   title     String     @unique
   questions Question[]
 }
+
+model Paragraph {
+  id Int @id @default(autoincrement())
+  title String 
+  text String
+}
+
+model Person {
+  id Int @id @default(autoincrement())
+  firstName String 
+  lastName String 
+  bio String
+}

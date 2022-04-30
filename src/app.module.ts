@@ -7,6 +7,8 @@ import { UserModule } from './controllers/user/user.module';
 import { AdminModule } from '@adminjs/nestjs';
 import { Database, Resource } from '@adminjs/prisma';
 import { DMMFClass } from '@prisma/client/runtime';
+import { ParagraphService } from './services/paragraph/paragraph.service';
+import { PersonService } from './services/person/person.service';
 import AdminJS from 'adminjs';
 
 AdminJS.registerAdapter({ Database, Resource });
@@ -23,7 +25,7 @@ AdminJS.registerAdapter({ Database, Resource });
         }),
     ],
     controllers: [AppController, QuizController],
-    providers: [QuizService, PrismaService],
+    providers: [QuizService, PrismaService, ParagraphService, PersonService],
 })
 export class AppModule {
   constructor(private readonly prisma: PrismaService) {}
