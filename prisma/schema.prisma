@@ -46,6 +46,7 @@ model Paragraph {
   id Int @id @default(autoincrement())
   title String 
   text String
+  image String
 }
 
 model Person {
@@ -53,4 +54,5 @@ model Person {
   firstName String 
   lastName String 
   bio String
+  image String
 }

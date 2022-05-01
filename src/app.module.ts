@@ -12,6 +12,8 @@ import { ParagraphService } from './services/paragraph/paragraph.service';
 import { PersonService } from './services/person/person.service';
 import AdminJS from 'adminjs';
 import { join } from 'path';
+import { ParagraphController } from './controllers/paragraph/paragraph.controller';
+import { MorganModule } from 'nest-morgan';
 
 AdminJS.registerAdapter({ Database, Resource });
 
@@ -21,15 +23,16 @@ AdminJS.registerAdapter({ Database, Resource });
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', 'public')
         }),
+        MorganModule,
         UserModule,
         AdminModule.createAdmin({
-            adminJsOptions: {
+            adminJsOptions: {   
                 rootPath: '/admin',
                 resources: [],
             },
         }),
     ],
-    controllers: [AppController, QuizController],
+    controllers: [AppController, QuizController, ParagraphController],
     providers: [QuizService, PrismaService, ParagraphService, PersonService],
 })
 export class AppModule {
