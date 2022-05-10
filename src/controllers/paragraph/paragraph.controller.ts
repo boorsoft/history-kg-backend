@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { ParagraphService } from 'src/services/paragraph/paragraph.service';
 
 @Controller('api/paragraphs')
@@ -21,5 +21,10 @@ export class ParagraphController {
 
         return text;
 
+    }
+
+    @Post()
+    async createParagraph(@Req() req) {
+        return this.paragraphService.createParagraph(req.body);
     }
 }
