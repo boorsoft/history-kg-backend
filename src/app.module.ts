@@ -10,6 +10,7 @@ import { PersonService } from './services/person/person.service';
 import { join } from 'path';
 import { ParagraphController } from './controllers/paragraph/paragraph.controller';
 import { MorganModule } from 'nest-morgan';
+import { PersonController } from './controllers/person/person.controller';
 
 @Module({
     imports: [
@@ -19,7 +20,7 @@ import { MorganModule } from 'nest-morgan';
         MorganModule,
         UserModule,
     ],
-    controllers: [AppController, QuizController, ParagraphController],
+    controllers: [AppController, QuizController, ParagraphController, PersonController],
     providers: [QuizService, PrismaService, ParagraphService, PersonService],
 })
 export class AppModule {}
