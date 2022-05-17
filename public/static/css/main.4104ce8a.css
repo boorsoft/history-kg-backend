@@ -1,0 +1,2 @@
+@import url(https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500&display=swap);::root{--primary-color:#f9f9ff;--accent-color:#5547f0;--text-color:#28254a}*{box-sizing:border-box}body,html{margin:0;padding:0}.App{align-items:center;background:var(--primary-color);display:flex;font-family:Roboto Flex,sans-serif;justify-content:center}.App,a{color:var(--text-color)}a{text-decoration:none}
+/*# sourceMappingURL=main.4104ce8a.css.map*/

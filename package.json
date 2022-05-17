@@ -31,6 +31,9 @@
     "express-session": "^1.17.2",
     "morgan": "^1.10.0",
     "nest-morgan": "^2.0.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-scripts": "^5.0.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
@@ -43,6 +46,8 @@
     "@types/jest": "27.4.1",
     "@types/morgan": "^1.9.3",
     "@types/node": "^16.0.0",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
