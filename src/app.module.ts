@@ -11,6 +11,8 @@ import { join } from 'path';
 import { ParagraphController } from './controllers/paragraph/paragraph.controller';
 import { MorganModule } from 'nest-morgan';
 import { PersonController } from './controllers/person/person.controller';
+import { AuthController } from './controllers/auth/auth.controller';
+import { AuthService } from './services/auth/auth.service';
 
 @Module({
     imports: [
@@ -20,7 +22,7 @@ import { PersonController } from './controllers/person/person.controller';
         MorganModule,
         UserModule,
     ],
-    controllers: [AppController, QuizController, ParagraphController, PersonController],
-    providers: [QuizService, PrismaService, ParagraphService, PersonService],
+    controllers: [AppController, QuizController, ParagraphController, PersonController, AuthController],
+    providers: [QuizService, PrismaService, ParagraphService, PersonService, AuthService],
 })
 export class AppModule {}
