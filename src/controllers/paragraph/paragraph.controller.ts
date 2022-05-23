@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Req } from '@nestjs/common';
+import { Controller, Get, Header, Param, Post, Req } from '@nestjs/common';
 import { ParagraphService } from 'src/services/paragraph/paragraph.service';
 
 @Controller('api/paragraphs')
@@ -6,6 +6,7 @@ export class ParagraphController {
     constructor(private readonly paragraphService: ParagraphService) {}
 
     @Get()
+    @Header('Access-Control-Expose-Headers', 'Content-Range')
     getParagraphs() {
         return this.paragraphService.getParagraphs();
     }

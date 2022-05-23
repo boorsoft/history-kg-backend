@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Req } from '@nestjs/common';
+import { Controller, Get, Header, Param, Post, Req } from '@nestjs/common';
 import { PersonService } from 'src/services/person/person.service';
 
 @Controller('api/person')
@@ -6,6 +6,7 @@ export class PersonController {
     constructor(private readonly personService: PersonService) {}
 
     @Get()
+    @Header('Access-Control-Expose-Headers', 'Content-Range')
     getPersons() {
         return this.personService.getPersons()
     }
