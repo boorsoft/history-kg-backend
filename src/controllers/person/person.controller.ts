@@ -7,6 +7,7 @@ export class PersonController {
 
     @Get()
     @Header('Access-Control-Expose-Headers', 'Content-Range')
+    @Header('Content-Range', 'bytes : 0-9/*')
     getPersons() {
         return this.personService.getPersons()
     }

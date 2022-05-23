@@ -7,6 +7,7 @@ export class ParagraphController {
 
     @Get()
     @Header('Access-Control-Expose-Headers', 'Content-Range')
+    @Header('Content-Range', 'bytes : 0-9/*')
     getParagraphs() {
         return this.paragraphService.getParagraphs();
     }

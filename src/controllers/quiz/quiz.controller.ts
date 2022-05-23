@@ -8,6 +8,7 @@ export class QuizController {
 
     @Get()
     @Header('Access-Control-Expose-Headers', 'Content-Range')
+    @Header('Content-Range', 'bytes : 0-9/*')
     getQuizzes(): Promise<Quiz[]> {
       return this.quizService.getQuizzes()
     }
