@@ -14,14 +14,7 @@ export class ParagraphController {
 
     @Get(':id')
     async getParagraph(@Param('id') id: string) {
-        const data = this.paragraphService.getParagraph(+id);
-        let text: string;
-
-        await data.then((paragraph) => {
-            text = paragraph.text;
-        })
-
-        return text;
+        return this.paragraphService.getParagraph(+id);
 
     }
 
