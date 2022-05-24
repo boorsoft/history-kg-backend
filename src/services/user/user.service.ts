@@ -7,7 +7,7 @@ export class UserService {
     constructor(private readonly prismaService: PrismaService) {}
 
     async getUser(username: string) {
-        return this.prismaService.user.findUnique({
+        return this.prismaService.user.findFirst({
             where: {
                 username,
             },
