@@ -1,4 +1,5 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, Post, Req } from '@nestjs/common';
+import { User } from '@prisma/client';
 import { AuthService } from 'src/services/auth/auth.service';
 
 @Controller('auth')
@@ -6,17 +7,17 @@ export class AuthController {
     constructor(private authService: AuthService) {}
 
     @Post('/login')
-    login() {
-        this.authService.login();
+    login(@Req() req) {
+        return this.authService.login(req.body.username, req.body.password);
     }
 
     @Post('/signup')
-    signup() {
-        this.authService.signup();
+    signup(@Req() req) {
+        return this.authService.signup(req.body);
     }
 
     @Post('/logout')
     logout() {
-        this.authService.logout();
+        return this.authService.logout();
     }
 }

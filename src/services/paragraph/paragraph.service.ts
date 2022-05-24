@@ -1,12 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { Paragraph } from 'src/types/types';
 import { PrismaService } from '../prisma.service';
-
-interface Paragraph {
-    id?: number;
-    text: string;
-    title: string;
-    image: string;
-}
 
 @Injectable()
 export class ParagraphService {
