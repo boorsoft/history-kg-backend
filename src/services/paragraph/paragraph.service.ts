@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Paragraph } from 'src/types/types';
 import { PrismaService } from '../prisma.service';
 
@@ -25,6 +25,8 @@ export class ParagraphService {
                 text,
                 image
             }
+        }).catch((err) => {
+            throw new BadRequestException(err.message);
         })
     }
 }
