@@ -1,4 +1,5 @@
-import { Controller, Get, Header, Param, Post, Req } from '@nestjs/common';
+import { Controller, Get, Header, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { PersonService } from 'src/services/person/person.service';
 
 @Controller('api/persons')
@@ -17,6 +18,7 @@ export class PersonController {
         return this.personService.getPerson(+id)
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post()
     createPerson(@Req() req) {
         return this.personService.createPerson(req.body)
