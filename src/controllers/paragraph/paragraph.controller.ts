@@ -26,7 +26,7 @@ export class ParagraphController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Patch()
+    @Patch(':id')
     async updateParagraph(@Req() req, @Param('id') id: string) {
         return this.paragraphService.updateParagraph(+id, req.body);
     }

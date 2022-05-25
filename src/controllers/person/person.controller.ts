@@ -25,7 +25,7 @@ export class PersonController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Patch()
+    @Patch(':id')
     updatePerson(@Req() req, @Param('id') id: string) {
         return this.personService.updatePerson(+id, req.body);
     }
