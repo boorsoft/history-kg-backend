@@ -42,4 +42,12 @@ export class ParagraphService {
             }
         })
     }
+
+    async deleteParagraph(id: number) {
+        return this.prisma.paragraph.delete({
+            where: {
+                id
+            }
+        })
+    }
 }

@@ -48,4 +48,12 @@ export class PersonService {
             }
         })
     }
+
+    async deletePerson(id: number) {
+        return this.prisma.person.delete({
+            where: {
+                id
+            }
+        })
+    }
 }
