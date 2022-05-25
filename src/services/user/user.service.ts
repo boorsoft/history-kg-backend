@@ -16,7 +16,9 @@ export class UserService {
 
     async createUser(user: User) {
         return this.prismaService.user.create({
-            data: user
+            data: {
+                ...user
+            }
         })
     }
 }
