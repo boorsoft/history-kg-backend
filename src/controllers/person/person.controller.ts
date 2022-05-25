@@ -1,4 +1,4 @@
-import { Controller, Get, Header, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Header, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { PersonService } from 'src/services/person/person.service';
 
@@ -22,5 +22,11 @@ export class PersonController {
     @Post()
     createPerson(@Req() req) {
         return this.personService.createPerson(req.body)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Patch()
+    updatePerson(@Req() req, @Param('id') id: string) {
+        return this.personService.updatePerson(+id, req.body);
     }
 }

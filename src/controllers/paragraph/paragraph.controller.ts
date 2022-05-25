@@ -1,4 +1,4 @@
-import { Controller, Get, Header, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Header, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { ParagraphService } from 'src/services/paragraph/paragraph.service';
 
@@ -23,5 +23,11 @@ export class ParagraphController {
     @Post()
     async createParagraph(@Req() req) {
         return this.paragraphService.createParagraph(req.body);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Patch()
+    async updateParagraph(@Req() req, @Param('id') id: string) {
+        return this.paragraphService.updateParagraph(+id, req.body);
     }
 }

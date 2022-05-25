@@ -34,4 +34,18 @@ export class PersonService {
             }
         })
     }
+
+    async updatePerson(id: number, {firstName, lastName, bio, image}: Person) {
+        return this.prisma.person.update({
+            where: {
+                id
+            },
+            data: {
+                firstName,
+                lastName,
+                bio,
+                image
+            }
+        })
+    }
 }

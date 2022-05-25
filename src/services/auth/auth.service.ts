@@ -31,8 +31,8 @@ export class AuthService {
             message: 'Authorization successful!',
             token: token,
             user: {
+                id: user.id,
                 username: user.username,
-                email: user.email,
             },
         };
     }
@@ -57,7 +57,6 @@ export class AuthService {
             user: {
                 id: user.id,
                 username: user.username,
-                email: user.email,
                 firstName: user.firstName,
                 lastName: user.lastName,
             },

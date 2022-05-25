@@ -19,4 +19,13 @@ export class UserService {
             data: user
         })
     }
+
+    async createSuperUser(user: User) {
+        return this.prismaService.user.create({
+            data: {
+                ...user,
+                isAdmin: true
+            }
+        })
+    }
 }

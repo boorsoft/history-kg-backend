@@ -29,4 +29,17 @@ export class ParagraphService {
             throw new BadRequestException(err.message);
         })
     }
+
+    async updateParagraph(id: number, {text, title, image}: Paragraph) {
+        return this.prisma.paragraph.update({
+            where: {
+                id
+            },
+            data: {
+                text,
+                title,
+                image
+            }
+        })
+    }
 }
