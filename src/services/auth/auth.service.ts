@@ -16,7 +16,10 @@ export class AuthService {
         const user = await this.userService.getUser(username);
         let token: string;
 
+        if (!user.isAdmin) throw new ForbiddenException('You are not an admin')
+
         await bcrypt.compare(password, user.password).then(async (result) => {
+ 
             if (result) {
                 token = await this.jwtService.signAsync({ id: user.id, username });
             } else {

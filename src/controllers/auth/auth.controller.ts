@@ -8,6 +8,7 @@ export class AuthController {
 
     @Post('/login')
     login(@Req() req) {
+        console.log(req)
         return this.authService.login(req.body.username, req.body.password);
     }
 
