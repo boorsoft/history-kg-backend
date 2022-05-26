@@ -18,6 +18,7 @@ import { AuthService } from './services/auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UserService } from './services/user/user.service';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Module({
     imports: [
@@ -37,6 +38,6 @@ import { UserService } from './services/user/user.service';
         })
     ],
     controllers: [AppController, QuizController, ParagraphController, PersonController, AuthController],
-    providers: [QuizService, PrismaService, ParagraphService, PersonService, UserService, AuthService, JwtStrategy],
+    providers: [QuizService, PrismaService, ParagraphService, PersonService, UserService, AuthService, JwtStrategy, JwtAuthGuard],
 })
 export class AppModule {}
