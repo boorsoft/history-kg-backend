@@ -15,6 +15,14 @@ export interface Paragraph {
     image: string;
 }
 
+export interface Person {
+    id?: number;
+    firstName: string;
+    lastName: string;
+    bio: string;
+    image: string;
+}
+
 export interface Quiz {
     id?: number;
     title: string;

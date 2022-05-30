@@ -1,12 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { Person } from 'src/types/types';
 import { PrismaService } from '../prisma.service';
-
-interface Person {
-    firstName: string;
-    lastName: string;
-    bio: string;
-    image: string;
-}
 
 @Injectable()
 export class PersonService {
