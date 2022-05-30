@@ -14,3 +14,22 @@ export interface Paragraph {
     title: string;
     image: string;
 }
+
+export interface Quiz {
+    id?: number;
+    title: string;
+    questions: Question[]
+}
+export interface Question {
+    id?: number;
+    text: string;
+    quizId: number;
+    answers: Answer[]
+}
+
+export interface Answer {
+    id?: number;
+    text: string;
+    isCorrectAnswer: boolean;
+    questionId: number;
+}
