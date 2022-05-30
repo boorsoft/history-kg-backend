@@ -80,4 +80,12 @@ export class QuizService {
             data: answers
         })
     }
+
+    async deleteQuiz(id: number) {
+        return this.prisma.quiz.delete({
+            where: {
+                id
+            }
+        })
+    }
 }

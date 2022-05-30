@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Header, Param, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Header, Param, Post } from '@nestjs/common';
 import { Quiz } from '@prisma/client';
 import { QuizService } from 'src/services/quiz/quiz.service';
 import { Quiz as IQuiz} from 'src/types/types';
@@ -21,12 +21,17 @@ export class QuizController {
 
     @Post()
     async createQuiz(@Body() { title, questions }: IQuiz) {
-      this.quizService.createQuiz(title).then(
+      return this.quizService.createQuiz(title).then(
         (quiz) => {
           for (let q of questions) {
             this.quizService.createQuestion(q.text, quiz.id, q.answers);
           }
         }
       ).catch((error) => new BadRequestException(error.message))
+    }
+
+    @Delete()
+    deleteQuiz(@Param('id') id) {
+      return this.deleteQuiz(+id);
     }
 }
