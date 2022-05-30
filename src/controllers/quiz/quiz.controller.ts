@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Header, Param, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Header, Param, Post } from '@nestjs/common';
 import { Quiz } from '@prisma/client';
 import { QuizService } from 'src/services/quiz/quiz.service';
 import { Quiz as IQuiz} from 'src/types/types';
@@ -21,11 +21,12 @@ export class QuizController {
 
     @Post()
     async createQuiz(@Body() { title, questions }: IQuiz) {
-      const quiz = await this.quizService.createQuiz(title);
-      
-      for (let q of questions) {
-        await this.quizService.createQuestion(q.text, quiz.id, q.answers);
-      }
-
+      this.quizService.createQuiz(title).then(
+        (quiz) => {
+          for (let q of questions) {
+            this.quizService.createQuestion(q.text, quiz.id, q.answers);
+          }
+        }
+      ).catch((error) => new BadRequestException(error.message))
     }
 }

@@ -7,7 +7,15 @@ export class QuizService {
     constructor(private prisma: PrismaService) {}
 
     async getQuizzes() {
-        return this.prisma.quiz.findMany();
+        return this.prisma.quiz.findMany({
+            include: {
+                questions: {
+                    include: {
+                        answers: true
+                    }
+                }
+            }
+        });
     }
 
     async getQuiz(id: number) {
