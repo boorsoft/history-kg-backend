@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { Answer } from 'src/types/types';
+import { Answer, Quiz } from 'src/types/types';
 
 @Injectable()
 export class QuizService {
@@ -45,6 +45,17 @@ export class QuizService {
         })
     }
 
+    async updateQuiz(id: number, title: string) {
+        return this.prisma.quiz.update({
+            where: {
+                id
+            },
+            data: {
+                title
+            }
+        })
+    }
+
     async createQuestion(text: string, quizId: number, answers: Answer[]) {
         return this.prisma.question.create({
             data: {
@@ -52,6 +63,26 @@ export class QuizService {
                 quizId,
                 answers: {
                     createMany: {
+                        data: answers
+                    }
+                }
+            }
+        })
+    }
+
+    async updateQuestion(id: number, text: string, quizId: number, answers: Answer[]) {
+        return this.prisma.question.update({
+            where: {
+                id
+            },
+            data: {
+                text,
+                quizId,
+                answers: {
+                    updateMany: {
+                        where: {
+                            questionId: id
+                        },
                         data: answers
                     }
                 }
