@@ -30,7 +30,7 @@ export class QuizController {
       ).catch((error) => new BadRequestException(error.message))
     }
 
-    @Put()
+    @Put(':id')
     async updateQuiz(@Body() { title, questions }: IQuiz, @Param('id') id: string) {
       return this.quizService.updateQuiz(+id, title).then((quiz) => {
         for (let q of questions) {
