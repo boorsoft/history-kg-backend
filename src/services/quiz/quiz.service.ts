@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { Answer, Quiz } from 'src/types/types';
+import { Answer, Question, Quiz } from 'src/types/types';
 
 @Injectable()
 export class QuizService {
@@ -37,6 +37,12 @@ export class QuizService {
         });
     }
 
+    async getQuestion(id: number) {
+        return this.prisma.question.findFirst({
+            where: { id }
+        })
+    }
+
     async createQuiz(title: string) {
         return this.prisma.quiz.create({
             data: {
@@ -70,14 +76,13 @@ export class QuizService {
         })
     }
 
-    async updateQuestion(id: number, text: string, quizId: number, answers: Answer[]) {
+    async updateQuestion(id: number, text: string, answers: Answer[]) {
         return this.prisma.question.update({
             where: {
                 id
             },
             data: {
                 text,
-                quizId,
                 answers: {
                     updateMany: {
                         where: {
@@ -90,9 +95,17 @@ export class QuizService {
         })
     }
 
-    async createManyQuestions(questions) {
+    async createManyQuestions(questions: Question[]) {
         return this.prisma.question.createMany({
             data: questions
+        })
+    }
+
+    async deleteManyQuestions(quizId: number) {
+        return this.prisma.question.deleteMany({
+            where: {
+                quizId
+            }
         })
     }
 

@@ -33,9 +33,13 @@ export class QuizController {
     @Put(':id')
     async updateQuiz(@Body() { title, questions }: IQuiz, @Param('id') id: string) {
       return this.quizService.updateQuiz(+id, title).then((quiz) => {
-        for (let q of questions) {
-          this.quizService.updateQuestion(q.id, q.text, quiz.id, q.answers);
-        }
+          this.quizService.deleteManyQuestions(quiz.id).then(() => {
+            
+            for (let q of questions) {
+              this.quizService.createQuestion(q.text, quiz.id, q.answers);
+            }
+
+          })
       }).catch((error) => new BadRequestException(error.message))
     }
 
