@@ -125,6 +125,10 @@ export class QuizService {
         })
     }
 
+    async createOrConnectManyAnswers(answers: Answer[]) {
+        return this.prisma.answer.updateMany
+    }
+
     async deleteQuiz(id: number) {
         return this.prisma.quiz.delete({
             where: {

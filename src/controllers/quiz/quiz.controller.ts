@@ -43,8 +43,8 @@ export class QuizController {
       }).catch((error) => new BadRequestException(error.message))
     }
 
-    @Delete()
-    deleteQuiz(@Param('id') id) {
-      return this.deleteQuiz(+id);
+    @Delete(':id')
+    deleteQuiz(@Param('id') id: string) {
+      return this.deleteQuiz(id);
     }
 }
