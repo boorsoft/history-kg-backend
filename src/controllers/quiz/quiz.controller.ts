@@ -1,5 +1,6 @@
-import { BadRequestException, Body, Controller, Delete, Get, Header, Param, Post, Put } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Header, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { Quiz } from '@prisma/client';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { QuizService } from 'src/services/quiz/quiz.service';
 import { Quiz as IQuiz} from 'src/types/types';
 
@@ -19,6 +20,7 @@ export class QuizController {
       return this.quizService.getQuiz(+id);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post()
     async createQuiz(@Body() { title, questions }: IQuiz) {
       return this.quizService.createQuiz(title).then(
@@ -30,6 +32,7 @@ export class QuizController {
       ).catch((error) => new BadRequestException(error.message))
     }
 
+    @UseGuards(JwtAuthGuard)
     @Put(':id')
     async updateQuiz(@Body() { title, questions }: IQuiz, @Param('id') id: string) {
       return this.quizService.updateQuiz(+id, title).then((quiz) => {
@@ -43,6 +46,7 @@ export class QuizController {
       }).catch((error) => new BadRequestException(error.message))
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     deleteQuiz(@Param('id') id: string) {
       return this.deleteQuiz(id);
