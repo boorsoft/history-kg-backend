@@ -55,3 +55,18 @@ model Person {
   bio       String
   image     String
 }
+
+model DocumentType {
+  id Int @id @default(autoincrement())
+  type String
+  Document Document?
+}
+
+model Document {
+  id  Int @id @default(autoincrement())
+  title String
+  text String?
+  link String?
+  type Int @unique
+  DocumentType  DocumentType @relation(fields: [type], references: [id], onDelete: Cascade)
+}
