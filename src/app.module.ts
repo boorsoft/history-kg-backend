@@ -7,10 +7,8 @@ import { PrismaService } from './prisma.service';
 import { QuizService } from './quiz/quiz.service';
 import { QuizController } from './quiz/quiz.controller';
 import { UserModule } from './user/user.module';
-import { ParagraphService } from './paragraph/paragraph.service';
 import { PersonService } from './person/person.service';
 import { join } from 'path';
-import { ParagraphController } from './paragraph/paragraph.controller';
 import { MorganModule } from 'nest-morgan';
 import { PersonController } from './person/person.controller';
 import { AuthController } from './auth/auth.controller';
@@ -37,7 +35,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
             }
         })
     ],
-    controllers: [AppController, QuizController, ParagraphController, PersonController, AuthController],
-    providers: [QuizService, PrismaService, ParagraphService, PersonService, UserService, AuthService, JwtStrategy, JwtAuthGuard],
+    controllers: [AppController, QuizController, PersonController, AuthController],
+    providers: [QuizService, PrismaService, PersonService, UserService, AuthService, JwtStrategy, JwtAuthGuard],
 })
 export class AppModule {}

@@ -42,11 +42,10 @@ model Quiz {
   questions Question[]
 }
 
-model Paragraph {
+model Book {
   id    Int    @id @default(autoincrement())
   title String
-  text  String
-  image String
+  fileName  String
 }
 
 model Person {
