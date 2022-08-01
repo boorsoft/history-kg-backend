@@ -8,11 +8,10 @@ export interface User {
     isAdmin: boolean;
 }
 
-export interface Paragraph {
+export interface Book {
     id?: number;
-    text: string;
     title: string;
-    image: string;
+    fileName: string;
 }
 
 export interface Person {
