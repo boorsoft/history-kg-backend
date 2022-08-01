@@ -1,6 +1,6 @@
 import { Controller, Delete, Get, Header, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
-import { PersonService } from 'src/services/person/person.service';
+import { PersonService } from './person.service';
 
 @Controller('api/persons')
 export class PersonController {

@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Controller, Delete, Get, Header, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { Quiz } from '@prisma/client';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
-import { QuizService } from 'src/services/quiz/quiz.service';
+import { QuizService } from './quiz.service';
 import { Quiz as IQuiz} from 'src/types/types';
 
 @Controller('api/quiz')

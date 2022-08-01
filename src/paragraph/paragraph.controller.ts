@@ -1,6 +1,6 @@
 import { Controller, Delete, Get, Header, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
-import { ParagraphService } from 'src/services/paragraph/paragraph.service';
+import { ParagraphService } from './paragraph.service';
 
 @Controller('api/paragraphs')
 export class ParagraphController {
