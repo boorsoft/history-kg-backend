@@ -43,9 +43,9 @@ model Quiz {
 }
 
 model Book {
-  id    Int    @id @default(autoincrement())
-  title String
-  fileName  String
+  id       Int    @id @default(autoincrement())
+  title    String @unique
+  fileName String @unique
 }
 
 model Person {
@@ -57,16 +57,16 @@ model Person {
 }
 
 model DocumentType {
-  id Int @id @default(autoincrement())
-  type String
+  id       Int       @id @default(autoincrement())
+  type     String
   Document Document?
 }
 
 model Document {
-  id  Int @id @default(autoincrement())
-  title String
-  text String?
-  link String?
-  type Int @unique
-  DocumentType  DocumentType @relation(fields: [type], references: [id], onDelete: Cascade)
+  id           Int          @id @default(autoincrement())
+  title        String
+  text         String?
+  link         String?
+  type         Int          @unique
+  DocumentType DocumentType @relation(fields: [type], references: [id], onDelete: Cascade)
 }

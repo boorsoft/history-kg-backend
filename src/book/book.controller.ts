@@ -1,4 +1,6 @@
-import { Body, Controller, Delete, Get, Header, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Header, Param, Post, Put, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { Book } from 'src/types/types';
 import { BookService } from './book.service';
@@ -21,8 +23,12 @@ export class BookController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  createBook(@Body() book: Book) {
-    return this.bookService.createBook(book)
+  @UseInterceptors(FileInterceptor('file', {storage: diskStorage({
+    destination: './public/books/',
+    filename: (req, file, callback) => callback(null, file.originalname)
+  })}))
+  createBook(@UploadedFile() file: Express.Multer.File, @Body() book: Book) {
+    return this.bookService.createBook({...book, fileName: file.filename})
   }
 
   @UseGuards(JwtAuthGuard)
