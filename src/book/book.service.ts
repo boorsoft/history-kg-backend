@@ -7,11 +7,11 @@ export class BookService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getBooks() {
-    this.prisma.book.findMany()
+    return this.prisma.book.findMany()
   }
 
   async getBook(id: number) {
-    this.prisma.book.findUnique({
+    return this.prisma.book.findUnique({
       where: {
         id
       }

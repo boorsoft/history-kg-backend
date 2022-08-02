@@ -10,7 +10,7 @@ export class BookController {
   @Get()
   @Header('Access-Control-Expose-Headers', 'Content-Range')
   @Header('Content-Range', 'bytes : 0-9/*')
-  getBooks() {
+  getBooks(): Promise<Book[]> {
     return this.bookService.getBooks()
   }
 
@@ -34,6 +34,6 @@ export class BookController {
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   deleteBook(@Param('id') id: string) {
-    return this.bookService.deleteBook(id)
+    return this.bookService.deleteBook(+id)
   }
 }
