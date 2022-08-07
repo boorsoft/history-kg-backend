@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
@@ -15,6 +15,8 @@ export class AuthService {
     async login(username: string, password: string) {
         const user = await this.userService.getUser(username);
         let token: string;
+
+        if (!user) throw new NotFoundException('User not found')
 
         if (!user.isAdmin) throw new ForbiddenException('You are not an admin')
 
