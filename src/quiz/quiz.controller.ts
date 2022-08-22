@@ -22,8 +22,8 @@ export class QuizController {
 
     @UseGuards(JwtAuthGuard)
     @Post()
-    async createQuiz(@Body() { title, questions }: IQuiz) {
-      return this.quizService.createQuiz(title).then(
+    async createQuiz(@Body() { title, questions, subjectId }: IQuiz) {
+      return this.quizService.createQuiz(title, subjectId).then(
         (quiz) => {
           for (let q of questions) {
             this.quizService.createQuestion(q.text, quiz.id, q.answers);
@@ -34,8 +34,8 @@ export class QuizController {
 
     @UseGuards(JwtAuthGuard)
     @Put(':id')
-    async updateQuiz(@Body() { title, questions }: IQuiz, @Param('id') id: string) {
-      return this.quizService.updateQuiz(+id, title).then((quiz) => {
+    async updateQuiz(@Body() { title, questions, subjectId }: IQuiz, @Param('id') id: string) {
+      return this.quizService.updateQuiz(+id, title, subjectId).then((quiz) => {
           this.quizService.deleteManyQuestions(quiz.id).then(() => {
             
             for (let q of questions) {
@@ -49,6 +49,6 @@ export class QuizController {
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
     deleteQuiz(@Param('id') id: string) {
-      return this.deleteQuiz(id);
+      return this.quizService.deleteQuiz(+id)
     }
 }

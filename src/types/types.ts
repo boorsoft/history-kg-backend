@@ -11,7 +11,11 @@ export interface User {
 export interface Book {
     id?: number;
     title: string;
+    author: string;
+    city?: string;
+    year?: number;
     fileName: string;
+    subjectId: number;
 }
 
 export interface Person {
@@ -20,12 +24,14 @@ export interface Person {
     lastName: string;
     bio: string;
     image: string;
+    subjectId: number;
 }
 
 export interface Quiz {
     id?: number;
     title: string;
     questions: Question[]
+    subjectId: number;
 }
 export interface Question {
     id?: number;
@@ -39,4 +45,9 @@ export interface Answer {
     text: string;
     isCorrectAnswer: boolean;
     questionId: number;
+}
+
+export interface Subject {
+    id?: number;
+    title: string;
 }

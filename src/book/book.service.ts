@@ -18,23 +18,31 @@ export class BookService {
     })
   }
 
-  async createBook({ title, fileName }: Book) {
+  async createBook({ title, fileName, author, city, year, subjectId }: Book) {
     return this.prisma.book.create({
       data: {
         title,
-        fileName
+        fileName,
+        author,
+        city,
+        year,
+        subjectId
       }
     })
   }
 
-  async updateBook(id: number, { title, fileName }: Book) {
+  async updateBook(id: number, { title, fileName, author, city, year, subjectId }: Book) {
     return this.prisma.book.update({
       where: {
         id
       },
       data: {
         title,
-        fileName
+        fileName,
+        author,
+        city,
+        year,
+        subjectId
       }
     })
   }

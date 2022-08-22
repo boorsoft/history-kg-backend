@@ -19,6 +19,8 @@ import { UserService } from './user/user.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { BookController } from './book/book.controller';
 import { BookService } from './book/book.service';
+import { SubjectController } from './subject/subject.controller';
+import { SubjectService } from './subject/subject.service';
 
 @Module({
     imports: [
@@ -37,7 +39,7 @@ import { BookService } from './book/book.service';
             }
         })
     ],
-    controllers: [AppController, QuizController, PersonController, AuthController, BookController],
-    providers: [QuizService, PrismaService, PersonService, UserService, AuthService, JwtStrategy, JwtAuthGuard, BookService],
+    controllers: [AppController, QuizController, PersonController, AuthController, BookController, SubjectController],
+    providers: [QuizService, PrismaService, PersonService, UserService, AuthService, JwtStrategy, JwtAuthGuard, BookService, SubjectService],
 })
 export class AppModule {}

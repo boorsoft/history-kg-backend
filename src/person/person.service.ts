@@ -18,18 +18,19 @@ export class PersonService {
         })
     }
 
-    async createPerson({ firstName, lastName, bio, image }: Person) {
+    async createPerson({ firstName, lastName, bio, image, subjectId }: Person) {
         return this.prisma.person.create({
             data: {
                 firstName,
                 lastName, 
                 bio,
-                image
+                image,
+                subjectId
             }
         })
     }
 
-    async updatePerson(id: number, {firstName, lastName, bio, image}: Person) {
+    async updatePerson(id: number, {firstName, lastName, bio, image, subjectId}: Person) {
         return this.prisma.person.update({
             where: {
                 id
@@ -38,7 +39,8 @@ export class PersonService {
                 firstName,
                 lastName,
                 bio,
-                image
+                image,
+                subjectId
             }
         })
     }

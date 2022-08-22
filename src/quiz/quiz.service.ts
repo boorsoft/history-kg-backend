@@ -43,21 +43,23 @@ export class QuizService {
         })
     }
 
-    async createQuiz(title: string) {
+    async createQuiz(title: string, subjectId: number) {
         return this.prisma.quiz.create({
             data: {
-                title
+                title,
+                subjectId
             },
         })
     }
 
-    async updateQuiz(id: number, title: string) {
+    async updateQuiz(id: number, title: string, subjectId: number) {
         return this.prisma.quiz.update({
             where: {
                 id
             },
             data: {
-                title
+                title,
+                subjectId
             }
         })
     }
