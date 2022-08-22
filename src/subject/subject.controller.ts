@@ -4,6 +4,7 @@ import {
     Controller,
     Delete,
     Get,
+    Header,
     Param,
     Post,
     UseGuards,
@@ -17,6 +18,8 @@ import { Subject as ISubject } from 'src/types/types';
 export class SubjectController {
     constructor(private readonly subjectService: SubjectService) {}
 
+    @Header('Access-Control-Expose-Headers', 'Content-Range')
+    @Header('Content-Range', 'bytes : 0-9/*')
     @Get()
     getSubjects(): Promise<Subject[]> {
         return this.subjectService.getSubjects();
