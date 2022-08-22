@@ -20,6 +20,15 @@ model User {
   isAdmin   Boolean @default(false)
 }
 
+model Subject {
+  id Int @id @default(autoincrement())
+  title String @unique
+  books Book[]
+  quizzes Quiz[]
+  persons Person[]
+  documents Document[]
+}
+
 model Answer {
   id              Int      @id @default(autoincrement())
   text            String
@@ -40,12 +49,19 @@ model Quiz {
   id        Int        @id @default(autoincrement())
   title     String     @unique
   questions Question[]
+  subjectId Int
+  Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade) 
 }
 
 model Book {
   id       Int    @id @default(autoincrement())
   title    String @unique
+  author   String 
+  city     String?
+  year     Int?
   fileName String @unique
+  subjectId Int
+  Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 }
 
 model Person {
@@ -54,6 +70,8 @@ model Person {
   lastName  String
   bio       String
   image     String
+  subjectId Int
+  Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 }
 
 model DocumentType {
@@ -68,5 +86,7 @@ model Document {
   text         String?
   link         String?
   type         Int          @unique
+  subjectId Int
+  Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
   DocumentType DocumentType @relation(fields: [type], references: [id], onDelete: Cascade)
 }
