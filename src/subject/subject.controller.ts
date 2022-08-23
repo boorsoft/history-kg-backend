@@ -14,7 +14,7 @@ import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { SubjectService } from './subject.service';
 import { Subject as ISubject } from 'src/types/types';
 
-@Controller('subject')
+@Controller('api/subjects')
 export class SubjectController {
     constructor(private readonly subjectService: SubjectService) {}
 
