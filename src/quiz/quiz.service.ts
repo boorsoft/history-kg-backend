@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Answer, Question, Quiz } from 'src/types/types';
+import { connect } from 'http2';
 
 @Injectable()
 export class QuizService {
@@ -64,8 +65,8 @@ export class QuizService {
         })
     }
 
-    async createQuestion(text: string, quizId: number, answers: Answer[]) {
-        return this.prisma.question.create({
+    async createQuestion(text: string, quizId: number, answers?: Answer[]) {
+        return answers ? this.prisma.question.create({
             data: {
                 text,
                 quizId,
@@ -75,7 +76,10 @@ export class QuizService {
                     }
                 }
             }
-        })
+        }) : this.prisma.question.create({data: {
+            text,
+            quizId
+        }})
     }
 
     async updateQuestion(id: number, text: string, answers: Answer[]) {
