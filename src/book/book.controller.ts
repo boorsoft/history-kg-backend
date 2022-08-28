@@ -15,6 +15,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { Book } from 'src/types/types';
+import { resourceLimits } from 'worker_threads';
 import { BookService } from './book.service';
 
 @Controller('api/books')
@@ -37,6 +38,7 @@ export class BookController {
     @Post()
     @UseInterceptors(
         FileInterceptor('file', {
+            limits: { fileSize: 1000000 * 200 },
             storage: diskStorage({
                 destination: './public/books/',
                 filename: (req, file, callback) =>
