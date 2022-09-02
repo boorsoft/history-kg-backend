@@ -51,3 +51,10 @@ export interface Subject {
     id?: number;
     title: string;
 }
+
+export interface Article {
+    id?: number;
+    title: string;
+    text: string;
+    subjectId: number;
+}

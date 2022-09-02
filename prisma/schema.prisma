@@ -26,7 +26,7 @@ model Subject {
   books Book[]
   quizzes Quiz[]
   persons Person[]
-  documents Document[]
+  articles Article[]
 }
 
 model Answer {
@@ -73,20 +73,10 @@ model Person {
   subjectId Int
   Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 }
-
-model DocumentType {
-  id       Int       @id @default(autoincrement())
-  type     String
-  Document Document?
-}
-
-model Document {
+model Article {
   id           Int          @id @default(autoincrement())
   title        String
-  text         String?
-  link         String?
-  type         Int          @unique
+  text         String
   subjectId Int
   Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
-  DocumentType DocumentType @relation(fields: [type], references: [id], onDelete: Cascade)
 }

@@ -21,11 +21,13 @@ import { BookController } from './book/book.controller';
 import { BookService } from './book/book.service';
 import { SubjectController } from './subject/subject.controller';
 import { SubjectService } from './subject/subject.service';
+import { ArticleController } from './article/article.controller';
+import { ArticleService } from './article/article.service';
 
 @Module({
     imports: [
         ConfigModule.forRoot({
-            isGlobal: true
+            isGlobal: true,
         }),
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', 'public'),
@@ -35,11 +37,30 @@ import { SubjectService } from './subject/subject.service';
         JwtModule.register({
             secret: process.env.JWT_SECRET,
             signOptions: {
-                expiresIn: '30d'
-            }
-        })
+                expiresIn: '30d',
+            },
+        }),
     ],
-    controllers: [AppController, QuizController, PersonController, AuthController, BookController, SubjectController],
-    providers: [QuizService, PrismaService, PersonService, UserService, AuthService, JwtStrategy, JwtAuthGuard, BookService, SubjectService],
+    controllers: [
+        AppController,
+        QuizController,
+        PersonController,
+        AuthController,
+        BookController,
+        SubjectController,
+        ArticleController,
+    ],
+    providers: [
+        QuizService,
+        PrismaService,
+        PersonService,
+        UserService,
+        AuthService,
+        JwtStrategy,
+        JwtAuthGuard,
+        BookService,
+        SubjectService,
+        ArticleService,
+    ],
 })
 export class AppModule {}
