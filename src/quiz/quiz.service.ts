@@ -9,22 +9,25 @@ export class QuizService {
 
     async getQuizzes(limit?: number) {
         if (limit) {
-            return this.prisma.quiz.findMany({take: limit, include: {
-                questions: {
-                    include: {
-                        answers: true
-                    }
-                }
-            }})
+            return this.prisma.quiz.findMany({
+                take: limit,
+                include: {
+                    questions: {
+                        include: {
+                            answers: true,
+                        },
+                    },
+                },
+            });
         }
         return this.prisma.quiz.findMany({
             include: {
                 questions: {
                     include: {
-                        answers: true
-                    }
-                }
-            }
+                        answers: true,
+                    },
+                },
+            },
         });
     }
 
@@ -35,10 +38,10 @@ export class QuizService {
                 questions: {
                     include: {
                         answers: true,
-                    }
-                }
-            }
-        })
+                    },
+                },
+            },
+        });
     }
 
     async getQuestions(quizId: number) {
@@ -49,106 +52,114 @@ export class QuizService {
 
     async getQuestion(id: number) {
         return this.prisma.question.findFirst({
-            where: { id }
-        })
+            where: { id },
+        });
     }
 
     async createQuiz(title: string, subjectId: number) {
         return this.prisma.quiz.create({
             data: {
                 title,
-                subjectId
+                subjectId,
             },
-        })
+        });
     }
 
     async updateQuiz(id: number, title: string, subjectId: number) {
         return this.prisma.quiz.update({
             where: {
-                id
+                id,
             },
             data: {
                 title,
-                subjectId
-            }
-        })
+                subjectId,
+            },
+        });
     }
 
     async createQuestion(text: string, quizId: number, answers?: Answer[]) {
-        return answers ? this.prisma.question.create({
-            data: {
-                text,
-                quizId,
-                answers: {
-                    createMany: {
-                        data: answers
-                    }
-                }
-            }
-        }) : this.prisma.question.create({data: {
-            text,
-            quizId
-        }})
+        return answers
+            ? this.prisma.question.create({
+                  data: {
+                      text,
+                      quizId,
+                      answers: {
+                          createMany: {
+                              data: answers,
+                          },
+                      },
+                  },
+              })
+            : this.prisma.question.create({
+                  data: {
+                      text,
+                      quizId,
+                  },
+              });
     }
 
     async updateQuestion(id: number, text: string, answers: Answer[]) {
         return this.prisma.question.update({
             where: {
-                id
+                id,
             },
             data: {
                 text,
                 answers: {
                     updateMany: {
                         where: {
-                            questionId: id
+                            questionId: id,
                         },
-                        data: answers
-                    }
-                }
-            }
-        })
+                        data: answers,
+                    },
+                },
+            },
+        });
     }
 
     async createManyQuestions(questions: Question[]) {
         return this.prisma.question.createMany({
-            data: questions
-        })
+            data: questions,
+        });
     }
 
     async deleteManyQuestions(quizId: number) {
         return this.prisma.question.deleteMany({
             where: {
-                quizId
-            }
-        })
+                quizId,
+            },
+        });
     }
 
-    async createAnswer(text: string, questionId: number, isCorrectAnswer: boolean) {
+    async createAnswer(
+        text: string,
+        questionId: number,
+        isCorrectAnswer: boolean,
+    ) {
         return this.prisma.answer.create({
             data: {
                 text,
                 questionId,
-                isCorrectAnswer
-            }
-        })
+                isCorrectAnswer,
+            },
+        });
     }
 
     async createManyAnswers(answers: Answer[]) {
         return this.prisma.answer.createMany({
-            data: answers
-        })
+            data: answers,
+        });
     }
 
     async createOrConnectManyAnswers(answers: Answer[]) {
-        return this.prisma.answer.updateMany
+        return this.prisma.answer.updateMany;
     }
 
     async deleteQuiz(id: number) {
         return this.prisma.quiz.delete({
             where: {
-                id
-            }
-        })
+                id,
+            },
+        });
     }
 }

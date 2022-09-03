@@ -7,6 +7,7 @@ import {
     Header,
     Param,
     Post,
+    Put,
     Query,
     UseGuards,
 } from '@nestjs/common';
@@ -36,6 +37,19 @@ export class ArticleController {
         return this.articleService
             .createArticle({ title, text, subjectId })
             .catch((error) => new BadRequestException(error.message));
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Put(':id')
+    async updateArticle(
+        @Param('id') id: string,
+        @Body() { title, text, subjectId }: Article,
+    ) {
+        return this.articleService.updateArticle(+id, {
+            title,
+            text,
+            subjectId,
+        }).catch((error) => new BadRequestException(error.message))
     }
 
     @UseGuards(JwtAuthGuard)
