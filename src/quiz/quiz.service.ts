@@ -8,8 +8,16 @@ export class QuizService {
     constructor(private prisma: PrismaService) {}
 
     async getQuizzes(limit?: number) {
+        if (limit) {
+            return this.prisma.quiz.findMany({take: limit, include: {
+                questions: {
+                    include: {
+                        answers: true
+                    }
+                }
+            }})
+        }
         return this.prisma.quiz.findMany({
-            take: limit,
             include: {
                 questions: {
                     include: {

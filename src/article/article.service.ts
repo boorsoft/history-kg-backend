@@ -7,7 +7,7 @@ export class ArticleService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getArticles(limit?: number) {
-    return this.prisma.article.findMany({take: limit});
+    return this.prisma.article.findMany(limit && {take: limit!});
   }
 
   async getArticle(id: number) {
