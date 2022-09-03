@@ -45,11 +45,13 @@ export class ArticleController {
         @Param('id') id: string,
         @Body() { title, text, subjectId }: Article,
     ) {
-        return this.articleService.updateArticle(+id, {
-            title,
-            text,
-            subjectId,
-        }).catch((error) => new BadRequestException(error.message))
+        return this.articleService
+            .updateArticle(+id, {
+                title,
+                text,
+                subjectId,
+            })
+            .catch((error) => new BadRequestException(error.message));
     }
 
     @UseGuards(JwtAuthGuard)
