@@ -9,6 +9,7 @@ import {
     Param,
     Post,
     Put,
+    Query,
     UseGuards,
 } from '@nestjs/common';
 import { Quiz } from '@prisma/client';
@@ -23,8 +24,8 @@ export class QuizController {
     @Get()
     @Header('Access-Control-Expose-Headers', 'Content-Range')
     @Header('Content-Range', 'bytes : 0-9/*')
-    getQuizzes(): Promise<Quiz[]> {
-        return this.quizService.getQuizzes();
+    getQuizzes(@Query() query): Promise<Quiz[]> {
+        return this.quizService.getQuizzes(+query.limit);
     }
 
     @Get(':id')

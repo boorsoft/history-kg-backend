@@ -6,8 +6,8 @@ import { Book } from 'src/types/types';
 export class BookService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getBooks() {
-    return this.prisma.book.findMany()
+  async getBooks(limit?: number) {
+    return this.prisma.book.findMany({take: limit})
   }
 
   async getBook(id: number) {

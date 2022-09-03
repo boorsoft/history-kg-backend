@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Header, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, Header, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { PersonService } from './person.service';
 
@@ -9,8 +9,8 @@ export class PersonController {
     @Get()
     @Header('Access-Control-Expose-Headers', 'Content-Range')
     @Header('Content-Range', 'bytes : 0-9/*')
-    getPersons() {
-        return this.personService.getPersons()
+    getPersons(@Query() query) {
+        return this.personService.getPersons(+query.limit)
     }
 
     @Get(':id')

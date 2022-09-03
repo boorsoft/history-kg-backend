@@ -7,6 +7,7 @@ import {
     Header,
     Param,
     Post,
+    Query,
     UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
@@ -20,8 +21,8 @@ export class ArticleController {
     @Header('Access-Control-Expose-Headers', 'Content-Range')
     @Header('Content-Range', 'bytes : 0-9/*')
     @Get()
-    getArticles() {
-        return this.articleService.getArticles();
+    getArticles(@Query() query) {
+        return this.articleService.getArticles(+query.limit);
     }
 
     @Get(':id')
@@ -40,6 +41,8 @@ export class ArticleController {
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
     async deleteArticle(@Param('id') id: string) {
-      return this.articleService.deleteArticle(+id).catch((error) => new BadRequestException(error.message))
+        return this.articleService
+            .deleteArticle(+id)
+            .catch((error) => new BadRequestException(error.message));
     }
 }

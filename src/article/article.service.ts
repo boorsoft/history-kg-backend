@@ -6,8 +6,8 @@ import { Article } from 'src/types/types';
 export class ArticleService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getArticles() {
-    return this.prisma.article.findMany();
+  async getArticles(limit?: number) {
+    return this.prisma.article.findMany({take: limit});
   }
 
   async getArticle(id: number) {

@@ -6,8 +6,8 @@ import { PrismaService } from '../prisma.service';
 export class PersonService {
     constructor(private readonly prisma: PrismaService) {}
 
-    async getPersons() {
-        return this.prisma.person.findMany()
+    async getPersons(limit?: number) {
+        return this.prisma.person.findMany({take: limit})
     }
 
     async getPerson(id: number) {

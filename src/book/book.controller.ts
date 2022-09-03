@@ -7,6 +7,7 @@ import {
     Param,
     Post,
     Put,
+    Query,
     UploadedFile,
     UseGuards,
     UseInterceptors,
@@ -15,7 +16,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { Book } from 'src/types/types';
-import { resourceLimits } from 'worker_threads';
 import { BookService } from './book.service';
 
 @Controller('api/books')
@@ -25,8 +25,8 @@ export class BookController {
     @Get()
     @Header('Access-Control-Expose-Headers', 'Content-Range')
     @Header('Content-Range', 'bytes : 0-9/*')
-    getBooks(): Promise<Book[]> {
-        return this.bookService.getBooks();
+    getBooks(@Query() query): Promise<Book[]> {
+        return this.bookService.getBooks(+query.limit);
     }
 
     @Get(':id')

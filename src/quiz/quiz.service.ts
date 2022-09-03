@@ -7,8 +7,9 @@ import { connect } from 'http2';
 export class QuizService {
     constructor(private prisma: PrismaService) {}
 
-    async getQuizzes() {
+    async getQuizzes(limit?: number) {
         return this.prisma.quiz.findMany({
+            take: limit,
             include: {
                 questions: {
                     include: {
