@@ -23,6 +23,7 @@ import { SubjectController } from './subject/subject.controller';
 import { SubjectService } from './subject/subject.service';
 import { ArticleController } from './article/article.controller';
 import { ArticleService } from './article/article.service';
+import { SearchController } from './search/search.controller';
 
 @Module({
     imports: [
@@ -49,6 +50,7 @@ import { ArticleService } from './article/article.service';
         BookController,
         SubjectController,
         ArticleController,
+        SearchController,
     ],
     providers: [
         QuizService,
