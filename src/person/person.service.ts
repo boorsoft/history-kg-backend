@@ -18,6 +18,19 @@ export class PersonService {
         })
     }
 
+    async getPersonBySearch(searchValue: string) {
+        return this.prisma.person.findMany({
+            where: {
+                firstName: {
+                    search: searchValue
+                },
+                lastName: {
+                    search: searchValue
+                }
+            }
+        })
+    }
+
     async createPerson({ firstName, lastName, bio, image, subjectId }: Person) {
         return this.prisma.person.create({
             data: {

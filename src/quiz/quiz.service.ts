@@ -44,6 +44,21 @@ export class QuizService {
         });
     }
 
+    async getQuizBySearch(searchValue: string) {
+        return this.prisma.quiz.findMany({
+            where: {
+                title: searchValue
+            },
+            include: {
+                questions: {
+                    include: {
+                        answers: true
+                    }
+                }
+            }
+        })
+    }
+
     async getQuestions(quizId: number) {
         return this.prisma.question.findMany({
             where: { quizId },

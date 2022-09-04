@@ -18,6 +18,16 @@ export class ArticleService {
         });
     }
 
+    async getArticlesBySearch(searchValue: string) {
+        return this.prisma.article.findMany({
+            where: {
+                title: {
+                    search: searchValue
+                }
+            }
+        })
+    }
+
     async createArticle({ title, text, subjectId }: Article) {
         return this.prisma.article.create({
             data: {

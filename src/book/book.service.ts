@@ -18,6 +18,16 @@ export class BookService {
     })
   }
 
+  async getBooksBySearch(searchValue: string) {
+    return this.prisma.book.findMany({
+      where: {
+        title: {
+          search: searchValue
+        }
+      }
+    })
+  }
+
   async createBook({ title, fileName, author, city, year, subjectId }: Book) {
     return this.prisma.book.create({
       data: {
