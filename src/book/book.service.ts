@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { Book } from 'src/types/types';
+import { searchTransformForPrisma } from 'src/utils/utils';
 
 @Injectable()
 export class BookService {
@@ -22,7 +23,7 @@ export class BookService {
     return this.prisma.book.findMany({
       where: {
         title: {
-          search: searchValue
+          search: searchTransformForPrisma(searchValue)
         }
       }
     })

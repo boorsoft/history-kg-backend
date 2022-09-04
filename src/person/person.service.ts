@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Person } from 'src/types/types';
+import { searchTransformForPrisma } from 'src/utils/utils';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
@@ -22,10 +23,10 @@ export class PersonService {
         return this.prisma.person.findMany({
             where: {
                 firstName: {
-                    search: searchValue
+                    search: searchTransformForPrisma(searchValue)
                 },
                 lastName: {
-                    search: searchValue
+                    search: searchTransformForPrisma(searchValue)
                 }
             }
         })

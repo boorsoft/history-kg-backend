@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Answer, Question, Quiz } from 'src/types/types';
 import { connect } from 'http2';
+import { searchTransformForPrisma } from 'src/utils/utils';
 
 @Injectable()
 export class QuizService {
@@ -47,7 +48,7 @@ export class QuizService {
     async getQuizBySearch(searchValue: string) {
         return this.prisma.quiz.findMany({
             where: {
-                title: searchValue
+                title: searchTransformForPrisma(searchValue)
             },
             include: {
                 questions: {
