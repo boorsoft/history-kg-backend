@@ -48,7 +48,9 @@ export class QuizService {
     async getQuizBySearch(searchValue: string) {
         return this.prisma.quiz.findMany({
             where: {
-                title: searchTransformForPrisma(searchValue)
+                title: {
+                    search: searchTransformForPrisma(searchValue)
+                }
             },
             include: {
                 questions: {
