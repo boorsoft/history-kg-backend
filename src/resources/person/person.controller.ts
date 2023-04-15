@@ -1,4 +1,5 @@
 import {
+    BadRequestException,
     Controller,
     Delete,
     Get,
@@ -32,13 +33,17 @@ export class PersonController {
     @UseGuards(JwtAuthGuard)
     @Post()
     createPerson(@Req() req) {
-        return this.personService.createPerson(req.body);
+        return this.personService
+            .createPerson(req.body)
+            .catch((error) => new BadRequestException(error.message));
     }
 
     @UseGuards(JwtAuthGuard)
     @Put(':id')
     updatePerson(@Req() req, @Param('id') id: string) {
-        return this.personService.updatePerson(+id, req.body);
+        return this.personService
+            .updatePerson(+id, req.body)
+            .catch((error) => new BadRequestException(error.message));
     }
 
     @UseGuards(JwtAuthGuard)

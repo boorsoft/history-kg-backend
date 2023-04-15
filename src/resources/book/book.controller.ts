@@ -1,4 +1,5 @@
 import {
+    BadRequestException,
     Body,
     Controller,
     Delete,
@@ -47,18 +48,22 @@ export class BookController {
         }),
     )
     createBook(@UploadedFile() file: Express.Multer.File, @Body() book: Book) {
-        return this.bookService.createBook({
-            ...book,
-            year: +book.year,
-            subjectId: +book.subjectId,
-            fileName: file.filename,
-        });
+        return this.bookService
+            .createBook({
+                ...book,
+                year: +book.year,
+                subjectId: +book.subjectId,
+                fileName: file.filename,
+            })
+            .catch((error) => new BadRequestException(error.message));
     }
 
     @UseGuards(JwtAuthGuard)
     @Put(':id')
     updateBook(@Param('id') id: string, @Body() book: Book) {
-        return this.bookService.updateBook(+id, book);
+        return this.bookService
+            .updateBook(+id, book)
+            .catch((error) => new BadRequestException(error.message));
     }
 
     @UseGuards(JwtAuthGuard)
