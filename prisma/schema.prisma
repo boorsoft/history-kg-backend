@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
 
@@ -22,11 +22,11 @@ model User {
 }
 
 model Subject {
-  id Int @id @default(autoincrement())
-  title String @unique
-  books Book[]
-  quizzes Quiz[]
-  persons Person[]
+  id       Int       @id @default(autoincrement())
+  title    String    @unique
+  books    Book[]
+  quizzes  Quiz[]
+  persons  Person[]
   articles Article[]
 }
 
@@ -51,33 +51,34 @@ model Quiz {
   title     String     @unique
   questions Question[]
   subjectId Int
-  Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade) 
+  Subject   Subject    @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 }
 
 model Book {
-  id       Int    @id @default(autoincrement())
-  title    String @unique
-  author   String 
-  city     String?
-  year     Int?
-  fileName String @unique
+  id        Int     @id @default(autoincrement())
+  title     String  @unique
+  author    String
+  city      String?
+  year      Int?
+  fileName  String  @unique
   subjectId Int
-  Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  Subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 }
 
 model Person {
-  id        Int    @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   firstName String
   lastName  String
   bio       String
   image     String
   subjectId Int
-  Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  Subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 }
+
 model Article {
-  id           Int          @id @default(autoincrement())
-  title        String
-  text         String
+  id        Int     @id @default(autoincrement())
+  title     String
+  text      String
   subjectId Int
-  Subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  Subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 }

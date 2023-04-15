@@ -30,14 +30,14 @@ export interface Person {
 export interface Quiz {
     id?: number;
     title: string;
-    questions: Question[]
+    questions: Question[];
     subjectId: number;
 }
 export interface Question {
     id?: number;
     text: string;
     quizId: number;
-    answers: Answer[]
+    answers: Answer[];
 }
 
 export interface Answer {
