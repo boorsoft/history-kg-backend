@@ -26,12 +26,18 @@ export class PersonService {
     async getPersonBySearch(searchValue: string) {
         return this.prisma.person.findMany({
             where: {
-                firstName: {
-                    search: searchTransformForPrisma(searchValue),
-                },
-                lastName: {
-                    search: searchTransformForPrisma(searchValue),
-                },
+                OR: [
+                    {
+                        firstName: {
+                            search: searchTransformForPrisma(searchValue),
+                        },
+                    },
+                    {
+                        lastName: {
+                            search: searchTransformForPrisma(searchValue),
+                        },
+                    },
+                ],
             },
         });
     }
@@ -43,7 +49,11 @@ export class PersonService {
                 lastName,
                 bio,
                 image,
-                subjectId,
+                Subject: {
+                    connect: {
+                        id: +subjectId,
+                    },
+                },
             },
         });
     }

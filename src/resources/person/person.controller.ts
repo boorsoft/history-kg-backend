@@ -1,5 +1,6 @@
 import {
     BadRequestException,
+    Body,
     Controller,
     Delete,
     Get,
@@ -9,10 +10,16 @@ import {
     Put,
     Query,
     Req,
+    UploadedFile,
     UseGuards,
+    UseInterceptors,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { PersonService } from './person.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { Person } from 'src/types/types';
+import * as path from 'path';
 
 @Controller('api/persons')
 export class PersonController {
@@ -32,9 +39,29 @@ export class PersonController {
 
     @UseGuards(JwtAuthGuard)
     @Post()
-    createPerson(@Req() req) {
+    @UseInterceptors(
+        FileInterceptor('image', {
+            limits: { fileSize: 1000000 * 50 },
+            storage: diskStorage({
+                destination: './public/images/persons/',
+                filename: (req, file, callback) =>
+                    callback(
+                        null,
+                        Date.now() + path.extname(file.originalname),
+                    ),
+            }),
+        }),
+    )
+    createPerson(
+        @UploadedFile() file: Express.Multer.File,
+        @Body() person: Person,
+    ) {
         return this.personService
-            .createPerson(req.body)
+            .createPerson({
+                ...person,
+                image:
+                    process.env.BASE_URL + '/images/persons/' + file.filename,
+            })
             .catch((error) => new BadRequestException(error.message));
     }
 

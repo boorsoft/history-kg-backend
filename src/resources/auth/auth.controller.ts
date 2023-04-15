@@ -1,17 +1,24 @@
-import { Controller, Post, Req } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService) {}
 
     @Post('/login')
-    login(@Req() req) {
-        return this.authService.login(req.body.username, req.body.password);
+    login(@Body() body: LoginDto) {
+        console.log(body);
+
+        if (!body.username || !body.password) {
+            return new BadRequestException('Username or password not provided');
+        }
+
+        return this.authService.login(body.username, body.password);
     }
 
     @Post('/signup')
-    signup(@Req() req) {
-        return this.authService.signup(req.body);
+    signup(@Body() body) {
+        return this.authService.signup(body);
     }
 }
